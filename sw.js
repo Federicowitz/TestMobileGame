@@ -1,5 +1,20 @@
-self.addEventListener('install', e => {
-  self.skipWaiting();
+const CACHE_NAME = 'pokegame-v1';
+const ASSETS = [
+  './',
+  './index.html',
+  './manifest.json'
+];
+
+// Installazione: scarica i file
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+  );
 });
 
-self.addEventListener('fetch', e => {});
+// Fetch: serve i file dalla cache se offline
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request).then((response) => response || fetch(e.request))
+  );
+});
