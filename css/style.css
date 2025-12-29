@@ -1,27 +1,72 @@
-body {
+body, html {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Impedisce scroll */
+    background-color: #000;
+    touch-action: none; /* Disabilita zoom e pan nativi del browser */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 #game-container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #007bff;
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none; /* Lascia passare i click dove non ci sono pulsanti */
+}
+
+/* Zone Joystick */
+#joystick-zone-left, #joystick-zone-right {
+    position: absolute;
+    bottom: 50px;
+    width: 150px;
+    height: 150px;
+    pointer-events: auto; /* Riattiva i click qui */
+}
+
+#joystick-zone-left {
+    left: 50px;
+}
+
+#joystick-zone-right {
+    right: 50px;
+}
+
+#debug-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
     color: white;
-    border: none;
-    border-radius: 5px;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* Media query per schermi piccoli (mobile verticale) */
+@media (orientation: portrait) {
+    #joystick-zone-left {
+        bottom: 20px;
+        left: 20px;
+    }
+
+    #joystick-zone-right {
+        bottom: 20px;
+        right: 20px;
+    }
 }
